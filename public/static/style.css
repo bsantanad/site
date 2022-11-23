@@ -12,9 +12,6 @@
 body {
     background-color: #fafafa;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
-    /*
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-    */
 }
 
 body * + * {
@@ -64,6 +61,15 @@ nav > ul > li + li {
     padding-left: 2em;
 }
 
+@media only screen and (max-width: 600px) {
+    header,
+    nav {
+        grid-column: 1 / 4;
+        grid-row: span 1;
+        padding-left: 3em;
+    }
+}
+
 main {
     margin: 0em;
     grid-column: 2 / 4;
@@ -81,4 +87,12 @@ main > p {
 
 nav a {
     color: #007afc;
+}
+
+@media only screen and (max-width: 600px) {
+    main {
+        grid-column: 1 / 5;
+        grid-row: span 1;
+        margin: 0em 3em;
+    }
 }

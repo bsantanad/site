@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> bsantanad </title>
+  <meta name="viewport" content="width=device-width, inital-scale=1.0">
+  <link href='../static/style.css' rel='stylesheet' type='text/css'/>
+</head>
+<body>
+<header>
+  <h1><a href='../'>bsantanad</a></h1>
+  <nav>
+    <ul>
+      <li><a href='../'><img width='38em' src='../static/images/folder.svg'>home</a></li>
+      <li><a href='../blog.html' style='color: #ff3b30;'><img width='30em' src='../static/images/papers.svg'>blog</a></li>
+      <li><a href='../illustrations.html'><img width='38em' src='../static/images/frame.svg'>illustrations</a></li>
+      <li><a href='../about.html'><img width='30em' src='../static/images/about.svg'>about</a></li>
+    </ul>
+  </nav>
+</header>
+<main class='articles'>
+<small><a href='../blog.html'>back</a></small>
+<article>
+<h1>brief introduction to git for solo developers</h1>
+<p>I've been using <code>git</code> for a while now and I know that at first it can be
+overwhelming. <code>git</code> is wild beast, you can do a lot of stuff with it.
+Nevertheless after using it for a while you'll realise that you wont be using
+all git capabilities on a daily basis, just the basic ones. Those are the ones
+that I'll try to cover in this blog post.</p>
+<p>I will explain them the way I would have like to have them explained to me
+when I was starting, but, hey, you are not me, so your mileage may vary.</p>
+<h2>what is git?</h2>
+<p><code>git</code> is a version control system. This means it will help you keep track of
+the versions of your code. </p>
+<p>Let's see an example, say you just finished an assignment for your <em>Coding in
+C</em> class. You are just reviewing the requirements and checking all the boxes.
+When all of the sudden you come across one you haven't seen before. Its not the
+end of the world, you realise it's just a simple feature that you will be able
+to add in no time.</p>
+<p>So you open your favourite text editor and start modifying the code. You
+finish, it looks pretty good. Let's compile it then. Perfect. Now let's test
+it.  Oops, <em>Segmentation fault (core dumped)</em>. "Damn" you think "is this a new
+error?", "was this showing up before I made the last changes?", "what did I
+changed?", "I did not modify the core functionality, did I", "is there a way I
+can go back in time to when it worked?".</p>
+<p>If this ever happened to you, then the way you "go back in time" is by using
+<code>git</code>. <code>git</code> let us create snapshots of the current state of the project,
+meaning we can go back to a state of the project where it actually worked or
+where we had not made something stupid.</p>
+<p>It will help you a lot, even if you are working alone.</p>
+<h2>using git</h2>
+<p>Going back to the example of your <em>C assignment</em>, say you knew how to use git
+before starting to code. So the first step you did was create the directory
+where the code will be placed, <code>cd</code> into it, and do:</p>
+<pre><code>git init
+</code></pre>
+<p>This will initialise git (if the command was not obvious enough). It will
+create a hidden directory <code>.git</code> but what happens inside there is a story for
+another day.</p>
+<p>Cool, so now you have <code>git</code> initialised in your directory, now you start coding
+and have the first version you want to keep track of, like a good checkpoint to
+have if everything goes bananas. How do I start taking snapshots?  First we
+have to say which files we want to keep track of. Say your directory looks like
+this:</p>
+<pre><code>.
+├── main.c
+├── lib.c
+└── lib.h
+└── trash 
+</code></pre>
+<p>We do not want to keep track of the trash file right? So we will <strong>add</strong> the
+files we want to track with the <code>git add</code> command.</p>
+<pre><code>git add main.c
+git add lib.c lib.h
+</code></pre>
+<p>You can do <code>git status</code> at anytime to check what are you doing, in this case
+it will tell you the following:</p>
+<pre><code>$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)
+        new file:   file.c
+        new file:   file.h
+        new file:   main.c
+
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+        trash
+
+</code></pre>
+<p>Is the snapshot taken yet? nope. I like to make the analogy of you taking
+copies of a physical document, you go to the copy machine, put the paper in the
+machine and then press the button right? Well we are in that first step of
+going to the machine and putting the paper. We still have to press the button.</p>
+<p>Now let's create the snapshot then.</p>
+<pre><code>git commit -m &quot;first commit&quot;
+</code></pre>
+<p>We can use the <code>git commit</code> subcommand for that. To be honest I don't like the
+<code>-m</code> argument, I prefer to do:</p>
+<pre><code>git commit -vs
+</code></pre>
+<p>This will sign <code>-s</code> the commit with your name (commit is the git name for what
+we have been referring to as a snapshot), telling everyone that you made it
+(for better or for worse), and will open a text editor <code>-v</code>. There you will be
+able to write the commit description.</p>
+<p>This descriptions have a title and a body, something like this:</p>
+<pre><code>first commit, basic functionality working
+
+main.c and lib.c are linked with the header file, this helps
+the functions inside lib.c to be used in main. main.c has ....
+
+# more text
+
+Signed-off-by: dostoyevski crime@punishment.com
+
+# changes done 
+</code></pre>
+<p>This description and title will help anyone who wonders what does that commit
+adds or removes (including you). If you scroll down you can see the changes you
+made.</p>
+<p>If you do <code>git status</code> again you'll just see the trash file:</p>
+<pre><code>$ git status
+On branch master
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+        trash
+
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)
+</code></pre>
+<p>and if you do <code>git log</code> you'll see the commit you just made</p>
+<pre><code>$ git log
+commit c90ae394e0dd13cfbedddbeb69825d051e4d01ce (HEAD -&gt; master)
+Author: dostoyevski crime@punishment.com
+Date:   Sat May 14 17:49:34 2022 -0500
+
+    first commit, basic functionality working
+
+    main.c and lib.c are linked with the header file, this helps
+    the functions inside lib.c to be used in main. main.c has ....
+
+    # more text
+
+    Signed-off-by: dostoyevski crime@punishment.com
+</code></pre>
+<p>Let's sum up.</p>
+<ul>
+<li><code>git init</code>: initialise git in a directory</li>
+<li><code>git status</code>: check what are we doing with git (the state of the repo) </li>
+<li><code>git add &lt;somefile&gt;</code>: add a file to the stage env (like placing the paper in
+  the copy machine)</li>
+<li><code>git commit -vs</code>: take the snapshot, sign it, and document it (like pressing
+  the button in the copy machine)</li>
+<li><code>git log</code>: check the history of commits (snapshots you have taken)</li>
+</ul>
+<p>There is one last operation I want to cover in this post, <code>git diff</code>, this a
+quite useful subcommand that helps us see what has changed form the previous
+commit to the current state.</p>
+<p>Say you made your commit and continue working. Now you reach another milestone
+in your project so you think is a good time to take another snapshot. You
+already know the workflow, so you do <code>git add main.c</code> then <code>git commit -vs</code> you
+write the title and body, and you check the history with <code>git log</code>. But what if
+you want to see what you are are about to commit? like see the actual changes
+you did to the files. Then you do <code>git diff</code>, it will show you in red the lines
+you removed, and on green the ones you added. Pretty cool right?</p>
+<p>Well, as stated in the title, this is just a brief introduction, probably I
+will write more posts on other git stuff that can help you with your workflow,
+until then, take care.</p>
+</article>
+</main>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> bsantanad </title>
+  <meta name="viewport" content="width=device-width, inital-scale=1.0">
+  <link href='../static/style.css' rel='stylesheet' type='text/css'/>
+</head>
+<body>
+<header>
+  <h1><a href='../'>bsantanad</a></h1>
+  <nav>
+    <ul>
+      <li><a href='../'><img width='38em' src='../static/images/folder.svg'>home</a></li>
+      <li><a href='../blog.html' style='color: #ff3b30;'><img width='30em' src='../static/images/papers.svg'>blog</a></li>
+      <li><a href='../illustrations.html'><img width='38em' src='../static/images/frame.svg'>illustrations</a></li>
+      <li><a href='../about.html'><img width='30em' src='../static/images/about.svg'>about</a></li>
+    </ul>
+  </nav>
+</header>
+<main class='articles'>
+<small><a href='../blog.html'>back</a></small>
+<article>
+<h1>dd</h1>
+<p>More detailed guide <a href="https://www.raspberrypi.org/documentation/installation/installing-images/linux.md">here</a></p>
+<p>We'll see how to flash the image of an OS into a microsd, we want a microsd
+because we're doing this for a raspberry pi.</p>
+<h2>discover mount point</h2>
+<p>run:</p>
+<pre><code class="language-bash">lsblk -p
+</code></pre>
+<p>This will list all the block devices, in other words (less accurate), it will
+allow us to know the name of the microsd we just connected.</p>
+<p>See all the devices and filesystems listed? Good, now <strong>connect your microsd</strong></p>
+<p>run again:</p>
+<pre><code class="language-bash">lsblk -p
+</code></pre>
+<p>See the new device it just appeared. That's the one we are looking for, in
+my case it was at the end: <em>/dev/mmcblk0</em></p>
+<p>Now let's unmount the device partitions (if they are mounted, you will know
+this if they have a filesystem attached to them).</p>
+<p>In my case these were mounted</p>
+<pre><code class="language-bash">umount /dev/mmcblk0p2
+umount /dev/mmcblk0p1
+</code></pre>
+<h2>flash it</h2>
+<p>this is the super command that does all the work. <strong>BE CAREFULL</strong> read the
+whole paragraph before running it</p>
+<pre><code class="language-bash">sudo dd if=&lt;img-to-flash&gt;.img of=/dev/mmcblk0 bs=4M conv=fsync status=progress
+</code></pre>
+<p>the important part is the <strong>of=</strong>, if you write another block different
+from the one we just discovered in the first step, you can erase the
+partition of the linux system you are using.</p>
+<p>In other words <strong>make sure you write the device we just discovered</strong>, in
+my case /dev/mmcblk0.</p>
+<p>Note that I'm not using the once we unmount, those are the partitions, and
+we need to specify the device.</p>
+<p>Read the command twice before running it.
+you can find what the other thing mean <a href="https://www.raspberrypi.org/documentation/installation/installing-images/linux.md">here</a></p>
+<p>Hope this is helpful,
+happy coding :)</p>
+</article>
+</main>
+</body>
+</html>

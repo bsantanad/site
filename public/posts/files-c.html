@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> bsantanad </title>
+  <meta name="viewport" content="width=device-width, inital-scale=1.0">
+  <link href='../static/style.css' rel='stylesheet' type='text/css'/>
+</head>
+<body>
+<header>
+  <h1><a href='../'>bsantanad</a></h1>
+  <nav>
+    <ul>
+      <li><a href='../'><img width='38em' src='../static/images/folder.svg'>home</a></li>
+      <li><a href='../blog.html' style='color: #ff3b30;'><img width='30em' src='../static/images/papers.svg'>blog</a></li>
+      <li><a href='../illustrations.html'><img width='38em' src='../static/images/frame.svg'>illustrations</a></li>
+      <li><a href='../about.html'><img width='30em' src='../static/images/about.svg'>about</a></li>
+    </ul>
+  </nav>
+</header>
+<main class='articles'>
+<small><a href='../blog.html'>back</a></small>
+<article>
+<h1>files in c</h1>
+<h2>intro</h2>
+<p>I've been working in python so long that I have been spoiled on how easy things
+are. I have to write a compiler for a class of the last semester in college,
+and thought well, I can do it in C right? I have not use it in a long way, but
+hey "what's well learnt is never forgotten" right?</p>
+<p>Well apparently I never learned about Files in C, or even how to write good C
+at all. I only saw it in my first semesters where we did simple stuff. The
+homework is due for tomorrow so, I ended up writing a quick token detector in
+python. Nevertheless I went to sleep surprised how little I know about C, and
+how I thought I knew it. So I woke up the next day, and said, let's write this
+in C.</p>
+<p>I have a really big book <a href="https://www.amazon.com/Primer-Plus-6th-Developers-Library/dp/0321928423">C Primer Plus</a> that goes into big depth on the
+topic, so let's go over it and write here my notes. This way, my me from the
+future -- if ever encounter with the same problem I had -- can go back here and
+read all about files in c.</p>
+<p>Without further to say, let's start.</p>
+<h2>what is a file?</h2>
+<p>Let's start with the basics, a file is just a named section of storage. C makes
+the distinction between binary and text files. Internally all file content is
+in binary form, C makes the distinction based on if the file primarly uses the
+binary codes for character that represent text (ASCII or Unicode).</p>
+<p>C opens 3 files by default when you run a program, <code>stdout</code>, <code>stdin</code>, <code>stderr</code>.
+standard output, standard input, and standard error. These represent the normal
+input, output, and error output of your system.</p>
+<h2>simple program</h2>
+<p>let's make a program that counts the characters in a file</p>
+<pre><code class="language-c">/** program that counts the characters in file **/
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+
+int 
+main(int argc, char *argv[])
+{
+        char *prog = argv[0];  /** program name for errors **/
+
+        int c;
+        FILE *fp;
+        unsigned long count = 0;
+        if (argc != 2) {
+                printf(&quot;usage: %s filename\n&quot;, prog);
+                exit(-1);
+        }
+        if ((fp = fopen(argv[1], &quot;r&quot;)) == NULL){
+                printf(&quot;can not open: %s \n&quot;, argv[1]);
+                exit(-1);
+        }
+        while((c = getc(fp)) != EOF)
+        {
+                putc(c, stdout);
+                count++;
+        }
+
+        fclose(fp);
+        printf(&quot;file %s has %lu chars\n&quot;, argv[1], count);
+
+        return 0;
+}
+</code></pre>
+<p>okay, so what is going on, lets see.</p>
+<p>Since we are using args passed in the command line, we use <code>*argv[]</code>, this
+is an array of string with all the args you passed after the binary name.
+<code>argv[0]</code> being the name of the actual binary. So first we check if the 
+user sent at least two params (the binary name, and a filename). </p>
+<p>If he did then we proceed to try and open the file, this is where the function
+<code>fopen</code> comes in handy. Note that it receives two args, first the filename,
+and then how you want to open the file. Since we you want to read it now
+we used <code>r</code>, but you can also use <code>w</code> for writing, <code>a</code> for appending something
+to the file. If you want to see all the options go <a href="https://man7.org/linux/man-pages/man3/fopen.3.html#top_of_page">here</a>, or do
+<code>man fopen</code> in a unix machine.</p>
+<p>This function will return <code>NULL</code> if the file can not be opened. If it works
+it will return the FILE pointer to the variable you assigned, in this case
+<code>fp</code>. A curiose fact is that it will not point to the actual file in memory,
+it poitn to a data object containing info about the file.</p>
+<p>Anyway, then we use <code>getc</code> and <code>putc</code>, this gets a char of put a char, in the
+file specified. So <code>getc(fp)</code>, will get a char from the <code>fp</code> file. And <code>putc(c,
+stdout)</code> will put a char in the standard output (remember that those are files
+as well). We do the <code>getc</code> until we get the <code>EOF</code> character, this will tell us
+that the file has ended, so we need to stop.</p>
+<p>Then we use fclose to close the file, and call it a day. Note that we are using
+<code>exit()</code> instead of <code>return -1</code> if the code fails. This is becuase this
+function will close all files open by the program in case it fails, while
+return will not.</p>
+<h2>simple cat implementation</h2>
+<pre><code>/** simple cat implemetation **/
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+
+int
+main(int argc, char *argv[])
+{
+        char *prog = argv[0]; /** program name for error **/
+
+        char c;
+        FILE *fp; 
+
+        if (argc &lt; 2){
+                printf(&quot;%s: you need to pass at least one file to cat \n&quot;,
+                       prog);
+                exit(-1);
+        }
+
+        /** we need to move the argv array by one, since we dont want to print 
+         * the binary program, argv[0] = prog (the actual binary) **/
+        *argv++; 
+
+        while(argc-- &gt; 1){
+            if ((fp = fopen(*argv++, &quot;r&quot;)) == NULL) {
+                    printf(&quot;%s: can not open file\n&quot;, prog);
+                    exit(-1);
+            }
+            while((c = getc(fp)) != EOF) {
+                    putc(c, stdout);
+            }
+            fclose(fp);
+        }
+        return 0;
+}
+</code></pre>
+<p>This basically does the same as the program above, but now we can send any
+number of files to the program, and it will print them to the <code>stdout</code> one
+after the other.</p>
+<p>The way we do this, is by iterating the <code>argv</code> array, first we skip the fist
+element since it's the actual binary name, and we do not want to print that.
+then we iterate thru the next file and print it, until we are left out of
+files.</p>
+</article>
+</main>
+</body>
+</html>

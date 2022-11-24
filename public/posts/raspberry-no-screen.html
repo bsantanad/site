@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> bsantanad </title>
+  <meta name="viewport" content="width=device-width, inital-scale=1.0">
+  <link href='../static/style.css' rel='stylesheet' type='text/css'/>
+</head>
+<body>
+<header>
+  <h1><a href='../'>bsantanad</a></h1>
+  <nav>
+    <ul>
+      <li><a href='../'><img width='38em' src='../static/images/folder.svg'>home</a></li>
+      <li><a href='../blog.html' style='color: #ff3b30;'><img width='30em' src='../static/images/papers.svg'>blog</a></li>
+      <li><a href='../illustrations.html'><img width='38em' src='../static/images/frame.svg'>illustrations</a></li>
+      <li><a href='../about.html'><img width='30em' src='../static/images/about.svg'>about</a></li>
+    </ul>
+  </nav>
+</header>
+<main class='articles'>
+<small><a href='../blog.html'>back</a></small>
+<article>
+<h1>Set up wifi in raspberry os (no monitor, no keyboard, no mouse)</h1>
+<h2>what we'll do</h2>
+<p><strong>ethernet cable needed</strong></p>
+<ol>
+<li>flash image into microsd</li>
+<li>enable sshd before boot</li>
+<li>conect raspberry to router</li>
+<li>connect via ssh</li>
+<li>set up wifi</li>
+</ol>
+<p><em>disclamer: I don't know if this is the best way of doing this, but
+it works :)</em></p>
+<h2>flash image to microsd</h2>
+<p>already discussed this in another <a href="https://bsantanad.com/posts/flash-img.html">post</a></p>
+<h2>enable the ssh daemon before first boot</h2>
+<p>The raspberry OS doesn't enable ssh by default. So we need to enable it,
+we could enable it in our first boot, but since we don't have a screen
+how would we enable the option.</p>
+<p>All we need to do is the following:
+After we flashed the image to the microsd, two partitions will be created
+<em>boot</em> and <em>roofts</em>, if I'm not mistaken. We need to mount the <em>boot</em>
+partition and add a file in there, this can be done by just:</p>
+<pre><code class="language-bash">touch ssh
+</code></pre>
+<p>by just creating a file named <strong>ssh</strong> in the boot partition, raspberry os,
+will enable sshd.</p>
+<p>if you don't know how to mount a device check</p>
+<pre><code class="language-bash">man mount
+</code></pre>
+<p>for more info</p>
+<h2>connect to router</h2>
+<p>Okay, get up from your chair and go to your router. Connect the ethernet
+cable to both the raspberry pi and your router, hear the click in both
+sides and plug the raspberry into the power socket.</p>
+<p>Depending on the model, you'll see some lights turning on and off,
+this is normal don't worry, if nothing turns on, then you didn't connected
+the raspberry into the wall or your charger is broken or something :(</p>
+<h2>connect via ssh</h2>
+<p>Okay, so now we know that the raspberry has access to your local
+network but we don't know its IP address. There are a couple
+ways you can do this but the easiest and simplest is to do:</p>
+<pre><code class="language-bash">ifconfig -a
+</code></pre>
+<p>find your IP address, is something like: 192.168.bla1.bla2, once you find it
+then we use a tool called nmap, to check for devices in our local network</p>
+<p>if nmap it's not installed you can do</p>
+<pre><code class="language-bash">sudo dnf install nmap
+</code></pre>
+<p>or use <em>apt</em>, if you are in debian</p>
+<p>Now, we did the ifconfig for two reasons, first, to know our IP address, and
+second to see the <strong>bla1</strong> number (192.168.bla1.bla2).
+The raspberry probably is in the same bla1 number as your computer.</p>
+<p>(Please note that <strong>bla1</strong> isn't the official term :) )</p>
+<p>Well, let's do it, let's use nmap</p>
+<pre><code class="language-bash">nmap -F 192.168.&lt;bla1&gt;.1-255
+</code></pre>
+<p>replace <strong>bla1</strong> with your number :)</p>
+<p>All the devices in your local network will show up. If you see a lot of them
+with the port <strong>22</strong> open, then unplug your raspberry, run the command,
+plug it, wait a few seconds, and run the command again. See what device showed
+up when you plugged the raspberry. Most likely this is your raspberry.</p>
+<p>In case you only see your computer and other device with the port <strong>22</strong> open
+then probably that's your raspberry. If not, do the "unplug" thing I mentioned</p>
+<p>Now all we have to do is</p>
+<pre><code class="language-bash">ssh pi@192.168.&lt;bla1&gt;.&lt;bla2&gt;
+</code></pre>
+<p>the IP address is the one you took from the <em>nmap</em> command.</p>
+<p>It will ask you something about a key, say <strong>yes</strong>, and then it will
+ask you a password. Remeber the password we set in the first step? just
+kidding lol. The default password is <strong>raspberry</strong>. Write it down, and
+if you see</p>
+<pre><code class="language-bash">pi@raspberrypi:~ $
+</code></pre>
+<p>Hurray :) you're in.</p>
+<h2>set up wifi</h2>
+<p>I'd recommend changing the password with</p>
+<pre><code class="language-bash">passwd
+</code></pre>
+<p>Then you can run</p>
+<pre><code class="language-bash">sudo raspi-config
+</code></pre>
+<p>A GUI will be opened, select <strong>System Options</strong>, and then <strong>Wireless LAN</strong>
+write your SSID and passphrase.
+Select <strong>finish</strong></p>
+<h2>check everything right</h2>
+<p>Finally, just run:</p>
+<pre><code class="language-bash">ifconfig -a
+</code></pre>
+<p>You must see the wlan0 interface with an IP address. If that's there:
+congrats! Now you can unplug the ethernet cable, your raspberry has
+wifi now.</p>
+<p><strong>NOTE:</strong> Probably not, but the IP from wlan0 can change, take your
+precautions. But don't worry you can always use <em>nmap</em> to find it.</p>
+<p>Hope that helps,</p>
+<p>happy coding :)</p>
+<p>ben</p>
+</article>
+</main>
+</body>
+</html>

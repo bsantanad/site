@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> bsantanad </title>
+  <meta name="viewport" content="width=device-width, inital-scale=1.0">
+  <link href='../static/style.css' rel='stylesheet' type='text/css'/>
+</head>
+<body>
+<header>
+  <h1><a href='../'>bsantanad</a></h1>
+  <nav>
+    <ul>
+      <li><a href='../'><img width='38em' src='../static/images/folder.svg'>home</a></li>
+      <li><a href='../blog.html' style='color: #ff3b30;'><img width='30em' src='../static/images/papers.svg'>blog</a></li>
+      <li><a href='../illustrations.html'><img width='38em' src='../static/images/frame.svg'>illustrations</a></li>
+      <li><a href='../about.html'><img width='30em' src='../static/images/about.svg'>about</a></li>
+    </ul>
+  </nav>
+</header>
+<main class='articles'>
+<small><a href='../blog.html'>back</a></small>
+<article>
+<h1>podman cheatsheet</h1>
+<p>maybe it's quicker to use <code>man podman</code> but anyway, here's the cheatsheet.</p>
+<h3>podman?</h3>
+<p>from man-pages: simple management tool for pods, containers and images.
+Podman uses buildah to create container images.</p>
+<h3>commands</h3>
+<ul>
+<li><code>podman search --limit int &lt;name&gt;</code></li>
+<li>
+<p>search a container image from the registries, the limit flag limits the
+     output. The registries path:<code>/etc/containers/registries*</code></p>
+</li>
+<li>
+<p><code>podman run -it &lt;image&gt;</code></p>
+</li>
+<li>
+<p>run image while keeping STDIN even if detached (<code>i</code>), also allocate
+    pseudo-TTY for container (<code>t</code>).</p>
+</li>
+<li>
+<p><code>podman build -t &lt;tag/name&gt; -f &lt;dockerfile&gt;</code></p>
+</li>
+<li>build container, with tag from dockerfile.</li>
+<li>
+<p>if it complaints about some <code>crun</code> permissions thing, you can try adding
+    <code>--cgroup-manager cgroupfs</code> to the command. This is just a workaround
+    you need to check how to fix it.</p>
+</li>
+<li>
+<p><code>podman images</code></p>
+</li>
+<li>
+<p>list images in local storage</p>
+</li>
+<li>
+<p><code>podman images prune</code></p>
+</li>
+<li>
+<p>remove all images from local storage, a warning will come up </p>
+</li>
+<li>
+<p><code>podman rmi &lt;ID/name&gt;</code></p>
+</li>
+<li>
+<p>remove image by ID or name</p>
+</li>
+<li>
+<p><code>podman inspect &lt;container&gt;</code></p>
+</li>
+<li>
+<p>display container information, you can use <code>-l</code> to display the info of the
+    last container.</p>
+</li>
+<li>
+<p><code>podman logs &lt;container&gt;</code></p>
+</li>
+<li>
+<p>display container logs, you can use <code>-l</code> to display the info of the
+    last container.</p>
+</li>
+<li>
+<p><code>podman stop &lt;container&gt;</code></p>
+</li>
+<li>stop container or containers, you can use <code>-l</code> to display the info of the
+    last container.</li>
+</ul>
+<p>This list will grow with time.</p>
+</article>
+</main>
+</body>
+</html>

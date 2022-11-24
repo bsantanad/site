@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> bsantanad </title>
+  <meta name="viewport" content="width=device-width, inital-scale=1.0">
+  <link href='../static/style.css' rel='stylesheet' type='text/css'/>
+</head>
+<body>
+<header>
+  <h1><a href='../'>bsantanad</a></h1>
+  <nav>
+    <ul>
+      <li><a href='../'><img width='38em' src='../static/images/folder.svg'>home</a></li>
+      <li><a href='../blog.html' style='color: #ff3b30;'><img width='30em' src='../static/images/papers.svg'>blog</a></li>
+      <li><a href='../illustrations.html'><img width='38em' src='../static/images/frame.svg'>illustrations</a></li>
+      <li><a href='../about.html'><img width='30em' src='../static/images/about.svg'>about</a></li>
+    </ul>
+  </nav>
+</header>
+<main class='articles'>
+<small><a href='../blog.html'>back</a></small>
+<article>
+<h1>squashing commits in git</h1>
+<p>We've all been there, you just finished correcting all the typos of your README
+or documentation, you have already made the commit, push the changes, and then
+you realise you misspelled a word. "Damn" you think "do I have to make a new
+commit for this small change?", "that will only make the history of the repo
+bigger and messier". Good thing there is a way of fixing this.</p>
+<p>Welcome to squashing commits. I am going to explain the way I do it, I don't
+know if it's the best but it works perfectly for me, so it should work for you.</p>
+<p>Say you have your history this way:</p>
+<pre><code>$ git log --abbrev-commit --pretty=oneline
+9f0fd1c (HEAD -&gt; master) anther typo i had not seen
+5bc004b typo I missed
+78cf95f fixing typos in README
+773350e good commit
+</code></pre>
+<p>The <code>78cf95f</code> is the good one (the one we want to keep), <code>5bc004b</code> and
+<code>9f0fd1c</code> are the ones we want to get rid off. Meaning it would be nice that
+the last two commits could be <em>"merged"</em> with <code>78cf95f</code> this way we would only
+have one clean and simple commit for correcting typos.</p>
+<p>What do we do? We can use the <code>rebase</code> subcommand to <em>squash</em> the other two
+commits under that one:</p>
+<pre><code>$ git rebase -i 78cf95f^ # please note the ^
+</code></pre>
+<p>After we run this a text editor will be open and this will be displayed:</p>
+<pre><code>pick 78cf95f fixing typos in README
+pick 5bc004b typo I missed
+pick 9f0fd1c anther typo i had not seen
+
+# some comments
+</code></pre>
+<p>Then we can just squash the commits we want, so:</p>
+<pre><code>pick 78cf95f fixing typos in README
+squash 5bc004b typo I missed # edit this line
+squash 9f0fd1c anther typo i had not seen # edit this line
+
+# some comments
+</code></pre>
+<p>We just need to rewrite <code>pick</code> -&gt; <code>squash</code>. Then we are good to go, save and
+quit your text editor.</p>
+<p>The text editor will be opened again. This time we can modify the commit
+messages, in case we want to add something, or just remove the message for the
+two commits we are squashing. Once you are happy with the result, just save,
+quit, and voila.</p>
+<pre><code>$ git log --abbrev-commit --pretty=oneline
+0335a16 (HEAD -&gt; master) fixing typos in README
+773350e good commit
+</code></pre>
+<p>You now have a single, clean, commit. No need to contaminate your history with
+unnecessary commits.</p>
+<p>Hope this was helpful.</p>
+<p>Thanks,</p>
+<p>Ben</p>
+</article>
+</main>
+</body>
+</html>

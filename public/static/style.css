@@ -1,6 +1,11 @@
 :root {
     box-sizing: border-box;
-    font-size: calc(1vw + 0.6rem);
+}
+
+@media only screen and (max-width: 600px) {
+    :root {
+        font-size: max(calc(1vw), calc(1vw + 0.5em));
+    }
 }
 
 *,
@@ -38,6 +43,11 @@ header {
     padding: .5em 0em;
 }
 
+header > h1 > a {
+    text-decoration: none;
+    color: black;
+}
+
 nav > ul {
     display: flex;
     padding: 1em 0em;
@@ -66,18 +76,23 @@ nav > ul > li + li {
     nav {
         grid-column: 1 / 4;
         grid-row: span 1;
-        padding-left: 3em;
+        padding-left: 1.5em;
     }
 }
 
 main {
     margin: 0em;
     grid-column: 2 / 4;
-    grid-row: span 2;
+    grid-row: 2 / 4;
     border-radius: .5em;
     background-color: #fff;
     padding: 1em;
     font-size: 2rem;
+    max-width: 1080px;
+}
+
+pre {
+    font-size: 0.8em;
     overflow-y: auto;
 }
 
@@ -94,5 +109,66 @@ nav a {
         grid-column: 1 / 5;
         grid-row: span 1;
         margin: 0em 3em;
+    }
+    .articles {
+        margin: 0em 0em;
+    }
+
+}
+
+main > ul {
+    margin-top: 0em;
+    padding: 0.2em;
+}
+
+main > ul > li {
+    list-style-type: none;
+    font-size: 0.5em;
+    vertical-align: middle;
+}
+
+main > ul > li > small{
+    font-size: 0.7em;
+    color: gray;
+}
+
+main > ul > li > a {
+    vertical-align: middle;
+    color: #007afc;
+    text-decoration: none;
+    margin-top: 5em;
+}
+
+main > small > a {
+    color: gray;
+    font-size: 0.5em;
+}
+
+main > ul > li > a:visited {
+    color: #824c71;
+}
+
+main > ul > li > a > img {
+    vertical-align: middle;
+}
+main > article {
+    font-size: 0.5em;
+}
+.articles {
+    padding: 0em 1em;
+}
+
+@media only screen and (max-width: 600px) {
+    nav {
+        font-size: 1.5em;
+    }
+    main > article {
+        font-size: 0.8em;
+    }
+    main > ul > li {
+        font-size: 0.8em;
+    }
+    main > small{
+        font-size: 1.5em;
     }
 }

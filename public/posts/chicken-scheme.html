@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> bsantanad </title>
+  <meta name="viewport" content="width=device-width, inital-scale=1.0">
+  <link href='./static/style.css' rel='stylesheet' type='text/css'/>
+</head>
+<body>
+<header>
+  <h1><a href='./'>bsantanad</a></h1>
+  <nav>
+    <ul>
+      <li><a href='./'><img width='38em' src='static/images/folder.svg'>home</a></li>
+      <li><a href='./blog.html' style='color: #ff3b30;'><img width='30em' src='static/images/papers.svg'>blog</a></li>
+      <li><a href='./illustrations.html'><img width='38em' src='static/images/frame.svg'>illustrations</a></li>
+      <li><a href='./about.html'><img width='30em' src='static/images/about.svg'>about</a></li>
+    </ul>
+  </nav>
+</header>
+<h1>learning Scheme using chicken implementation</h1>
+<p>here I'll keep the notes I make while learning to program in Scheme using
+the <a href="https://wiki.call-cc.org/">chicken</a> impl. These are for personal use, so if you stumble
+on this by any chance excuse the mistakes and messiness.</p>
+<h2>day 1</h2>
+<h3>backstory</h3>
+<p>I was "watching" a movie while scrolling through my phone checking hacker news
+when I stumbled into <a href="https://news.ycombinator.com/item?id=31782985">this post</a> that talked about a <em>hobby</em> programming
+lang with a syntax similar to lisp. I never learnt lisp in university and I had
+not taken the time to learn more about it, but I was curious on how it worked.
+Scrolling through the post comments, I found one that said it was just a Scheme
+implementation.</p>
+<p>Me, not knowing what they were talking about -- like, what is Scheme? -- decided
+to google it to discover that is like lisp but more simple and minimal? (do not
+quote me on that)</p>
+<p>I started looking for resources to learn this Scheme programming lang. I
+found a book called <a href="https://mitpress.mit.edu/books/little-schemer-fourth-edition">the little schemer</a>. After reading some reviews
+I realised I was not going to learn lisp or scheme with this book alone, but
+that this book teaches you how to think in a way that makes you a better lisp
+or scheme programmer. I started reading it, but soon realised I wanted to
+run some Scheme code first and then come back to this book to improve on my
+thinking.</p>
+<p>This is where I stumbled with this <a href="https://www.cs.utexas.edu/ftp/garbage/cs345/schintro-v14/schintro_toc.html">book</a>, it seems it's like for
+a computer science class in the University of Texas? I don't know. Anyway, I
+read the overview, and jumped into the <em>using scheme</em> part.</p>
+<p>First thing it mentioned is that you'll need a scheme implementation to follow
+this book. I did not have any installed in my OpenBSD workstation. So I went
+surfing the web looking for different options. After a quick search I soon
+realised that there are a lot, but there were two that caught my attention
+<a href="https://wiki.call-cc.org/">chicken</a> and <a href="https://www.gnu.org/software/guile/">guile</a>. I choose the first one, installed it
+in my system with <code>pkg_add chicken</code> (simple as that) and I was able to jump
+into a interactive programming enviorment (the same thing as if you type
+python in your terminal, like a shell) by typing <code>chicken-csi</code>, and then
+the fun started :).</p>
+<h3>actual notes</h3>
+<h4>define things</h4>
+<p>you can do <code>chicken-csi</code> to start an interactive programming env. There you can
+define variables and things like that. From what I've learned, there are
+two main things in schemes, atoms and lists.</p>
+<ul>
+<li>hola is an atom</li>
+<li>(hola jose) is a list</li>
+</ul>
+<p>To define a variable, you can do:</p>
+<pre><code>#;&gt; (define number 10)
+#;&gt; number
+10
+</code></pre>
+<p>then if you type <code>number</code> it will show the 10.
+(I will just write <code>#;&gt;</code> to symbolise the prompt.)</p>
+<p>This is the way you define procedures too (I'm pretty sure a procedure is the
+same as a function, but with diff name). Here's an example:</p>
+<pre><code>#;&gt; (define (double n)
+        (+ n n))
+</code></pre>
+<p>We are defining a procedure with the name <code>double</code> that receives 1 param <code>n</code>
+then it adds <code>n + n</code> and returns it. Note that the operation is not in the way
+we usually think of operations, instead the operator <strong>precede</strong> the operands.</p>
+<p>Once I saw the notation I remember our Discrete Maths class, we saw this type
+of notation, it is called <a href="https://en.wikipedia.org/wiki/Polish_notation">polish notation</a> and help us when you want
+to build trees out of the operations. Anyway, back to chicken scheme.</p>
+<h4>booleans</h4>
+<p>we can write an if statement very easily.</p>
+<pre><code>(if (&lt; 1 2)
+    1
+    2)
+</code></pre>
+<p>This is read as, if 1 is less than 2 return 1 else return 2, in python it
+would look something like this:</p>
+<pre><code>if 1 &lt; 2:
+    return 1
+return 2
+</code></pre>
+<p>there are special objects that represent true <code>#t</code> and false <code>#f</code> so if you
+do:</p>
+<pre><code>#;&gt; (&lt; 2 3)
+#t
+</code></pre>
+<p>You can see that it returns the true object.</p>
+<p>Finally, let's see a procedure that uses an if statement.</p>
+<pre><code>(define (min_n a b)
+    (if (&lt; a b)
+        a
+        b))
+</code></pre>
+<p>now we can call it just by doing</p>
+<pre><code>#;&gt; (min_n 10 2)
+2
+</code></pre>
+<p><em>NOTE</em>: any other value other than <code>#f</code> is considered true</p>
+<p>I decided to stop there for the first day, hopefully I have time to continue
+on learning Scheme in the next few days, I'm enjoying it quite a bit.</p>
+<h2>day 2</h2>
+<p>to be continued... (hopefully soon)</p>
+
+</body>
+</html>

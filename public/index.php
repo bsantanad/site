@@ -24,5 +24,8 @@
     <p> unix enthusiast, </p>
     <p> works with <span style='color: <?= $color ?>'><?= $word ?></span>,</p>
 </main>
+<footer>
+    powered with php and openbsd
+</footer>
 </body>
 </html>

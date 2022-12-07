@@ -1,0 +1,20 @@
+main {
+    grid-column: 1 / 5;
+}
+
+.plot {
+    display: flex;
+    margin-top: 0;
+    height: 100%; overflow: auto;
+    flex: center;
+}
+
+pre > code {
+    font-size: 1.5em;
+}
+
+@media only screen and (max-width: 600px) {
+pre > code {
+    font-size: 1em;
+}
+}

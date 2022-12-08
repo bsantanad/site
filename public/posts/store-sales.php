@@ -140,7 +140,9 @@ with the location of the stores.</p>
 <pre><code>top = sales.groupby('store_nbr').sales.sum().sort_values().reset_index()
 top = top.tail(10)
 </code></pre>
-<p><img src='../static/plots/top.svg'></p>
+<div class='plot'>
+<img src='../static/plots/top.svg'>
+</div>
 <p>output:</p>
 <pre><code>|   | store_nbr | sales        | city      | state      | type | cluster |
 |---|-----------|--------------|-----------|------------|------|---------|
@@ -207,7 +209,9 @@ at each month. Now we only need to use plolty to graph</p>
 
 <em><a href='/../static/plots/pyplot.html' target="_blank">click here to see the plotly graph</a></em>
 <br>
+<div class='plot'>
 <img src='https://imgs.xkcd.com/comics/convincing.png'>
+</div>
 
 
 <p>well, enough of that, back to the plotly graph...<p>

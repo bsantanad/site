@@ -188,10 +188,10 @@ month. With the intention of knowing if when Christmas comes closer, certain
 category of product raises, or if they are the same throughout the whole year.</p>
 <p>let's first see what are the top ten categories with most sales, this
 is similar to the dataframe operation we did in the prior point. </p>
-<pre><code>top_fam = top_fam.sort_values(by = 'sales').tail(10).family
+<pre><code class='language-python'>top_fam = top_fam.sort_values(by = 'sales').tail(10).family
 </code></pre>
 <p>doing this we get the following ten (the last being the highest one)</p>
-<pre><code>DELI
+<pre><code class='language-bash'>DELI
 PERSONAL CARE
 MEATS
 POULTRY

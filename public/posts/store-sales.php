@@ -29,7 +29,7 @@
 <small><a href='../blog.html'>back</a></small>
 <article>
 <h1>store sales - data visualization</h1>
-<p>Hello there, in this post you'll find historical information about the sales by
+<p>hello there, in this post you'll find historical information about the sales by
 the store <em>Favorita</em> down in Ecuador. The information will be organized in
 colorful charts and pretty plots, hopefully, I can show you some insights
 into the store's behavior throughout the years.</p>
@@ -207,7 +207,7 @@ at each month. Now we only need to use plolty to graph</p>
 <p style='color: red;'> <b>plotly does not want to play nice, and did not let me embed the html graph</b></p>
 <p style='color: red;'> <b>i'll leave a xkcd comic where the other graph should be</b></p>
 
-<em><a href='/../static/plots/pyplot.html' target="_blank">click here to see the plotly graph</a></em>
+<em><a href='/public/static/plots/pyplot.html' target="_blank">click here to see the plotly graph</a></em>
 <br>
 <div class='plot'>
 <img src='https://imgs.xkcd.com/comics/convincing.png'>

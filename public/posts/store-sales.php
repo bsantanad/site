@@ -15,13 +15,13 @@
 </head>
 <body>
 <header>
-  <h1><a href='../'>bsantanad</a></h1>
+  <h1><a href='../../'>bsantanad</a></h1>
   <nav>
     <ul>
-      <li><a href='../'><img width='38em' src='../static/images/folder.svg'>home</a></li>
+      <li><a href='../../'><img width='38em' src='../static/images/folder.svg'>home</a></li>
       <li><a href='../blog.html' style='color: #ff3b30;'><img width='30em' src='../static/images/papers.svg'>blog</a></li>
       <li><a href='../illustrations.html'><img width='38em' src='../static/images/frame.svg'>illustrations</a></li>
-      <li><a href='../about.html'><img width='30em' src='../static/images/about.svg'>about</a></li>
+      <li><a href='../../'><img width='30em' src='../static/images/about.svg'>about</a></li>
     </ul>
   </nav>
 </header>

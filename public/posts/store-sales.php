@@ -230,10 +230,9 @@ Christmas) comes near. Right? </p>
 <p>okay so using some good old fashion pure python we can get that pretty easily.
 The algorithm is O(nxm) and probably can get optimized, but I leave that for
 the reader to do :).</p>
-<pre><code># where s is the sales dataframe, and he is the holiday events df
+<pre><code class='language-python'># where s is the sales dataframe, and he is the holiday events df
 for i, date in enumerate(s.date):
     p = 1000
-    tmp = []
     for h in he.date:
         td = (date - h)
         td = int((td / np.timedelta64(1, 'D')))

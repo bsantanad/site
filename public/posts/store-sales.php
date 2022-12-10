@@ -136,6 +136,9 @@ transactions and the oil price. </p>
 <p>In the dataset we have information on 54 stores, ones will perform
 better or worse than the other ones, I think it might have something to do
 with the location of the stores.</p>
+<p>we could just animate all the stores thru time</p>
+<?php include  __DIR__.'/../static/plots/anim.html'; ?>
+<p>but that looks king of ugly doesn't it?</p>
 <p>So let's get the top stores by sales.</p>
 <pre><code>top = sales.groupby('store_nbr').sales.sum().sort_values().reset_index()
 top = top.tail(10)

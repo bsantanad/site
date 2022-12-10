@@ -40,7 +40,7 @@ the files here go from 2013 to mid-2017. We got this information
 from <a href="https://www.kaggle.com/competitions/store-sales-time-series-forecasting/data">kaggle.com</a>, so if you want to know more about what is in the
 files or download them you can go <a href="https://www.kaggle.com/competitions/store-sales-time-series-forecasting/data">over there</a> and check them for
 yourself.</p>
-<p>In case you are too lazy for to do that (I do not blame you), here is a summary of
+<p>In case you are too lazy to do that (I do not blame you), here is a summary of
 what information we have:</p>
 <ul>
 <li>the price of oil throughout the period specified above. </li>

@@ -137,7 +137,9 @@ transactions and the oil price. </p>
 better or worse than the other ones, I think it might have something to do
 with the location of the stores.</p>
 <p>we could just animate all the stores thru time</p>
+<div class='plot'>
 <?php include  __DIR__.'/../static/plots/anim.html'; ?>
+</div>
 <p>but that looks king of ugly doesn't it?</p>
 <p>So let's get the top stores by sales.</p>
 <pre><code>top = sales.groupby('store_nbr').sales.sum().sort_values().reset_index()
